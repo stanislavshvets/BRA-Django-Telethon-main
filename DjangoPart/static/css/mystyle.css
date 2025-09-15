@@ -1,0 +1,17 @@
+.header, .data {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header_item, .data_item {
+    width: 13%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.video {
+   width: 100%;
+}
