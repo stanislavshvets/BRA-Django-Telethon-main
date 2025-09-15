@@ -3,11 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>Your stats</title>
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/mystyle.css' %}">
 </head>
 <body>
-Hello, {{ client_name }}!<br>
-Your stats: <br>
-{{ stats }}<br>
-<a href="/logout">Logout</a>
+<h1>Hello, {{ client_name }}!</h1>
+<h2>Тут можна дізнатися про стан ваших замовлень сьогодні. </h2>
+<hr>
+<ul>
+    <li>Кількість замовлених об’єктів: <strong>{{ client_name }}</strong></li>
+    <li>Загальний об’єм усіх замовлень: <strong>{{ client_name }}</strong></li>
+    <li>Загальна ціна USD: <strong>{{ client_name }}</strong></li>
+    <li>Загальна ціна UAH: <strong>{{ client_name }}</strong></li>
+</ul>
+<div class="header">
+    <div class="header_item"># N</div>
+    <div class="header_item">video</div>
+    <div class="header_item">Filename</div>
+    <div class="header_item">count</div>
+    <div class="header_item">volume single</div>
+    <div class="header_item">volume all</div>
+    <div class="header_item">price usd</div>
+    <div class="header_item">price usd</div>
+</div>
+<div class="data">
+    <div class="data_item"># N</div>
+    <div class="data_item">
+        <video class="video" autoplay>
+            <source class="video_source" src="{% static 'video/1.mp4' %}">
+        </video>
+    </div>
+    <div class="data_item">Filename</div>
+    <div class="data_item">count</div>
+    <div class="data_item">volume single</div>
+    <div class="data_item">volume all</div>
+    <div class="data_item">price usd</div>
+    <div class="data_item">price usd</div>
+</div>
 </body>
 </html>
