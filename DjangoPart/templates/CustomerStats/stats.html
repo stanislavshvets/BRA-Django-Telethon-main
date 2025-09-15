@@ -25,21 +25,25 @@
     <div class="header_item">volume single</div>
     <div class="header_item">volume all</div>
     <div class="header_item">price usd</div>
-    <div class="header_item">price usd</div>
+    <div class="header_item">price uah</div>
 </div>
-<div class="data">
-    <div class="data_item"># N</div>
-    <div class="data_item">
-        <video class="video" autoplay>
-            <source class="video_source" src="{% static 'video/1.mp4' %}">
-        </video>
-    </div>
-    <div class="data_item">Filename</div>
-    <div class="data_item">count</div>
-    <div class="data_item">volume single</div>
-    <div class="data_item">volume all</div>
-    <div class="data_item">price usd</div>
-    <div class="data_item">price usd</div>
+
+
+{% for order in orders %}
+    <div class="data">
+    <div class="data_item">{{forloop.counter}}</div>
+        <div class="data_item">
+            <video class="video" autoplay>
+                <source class="video_source" src="{% static order.name %}">
+            </video>
+        </div>
+        <div class="data_item">{{order.name}}</div>
+        <div class="data_item">count</div>
+        <div class="data_item">order.count * order.volume_mm3</div>
+        <div class="data_item">{{order.volume_mm3}}</div>
+        <div class="data_item">{{order.price_usd}}</div>
+        <div class="data_item">price uah</div>
 </div>
+{% endfor %}
 </body>
 </html>
