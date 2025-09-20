@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Статистика замовлень</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100..900&display=swap" rel="stylesheet">
+
+        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+        <style type="text/tailwindcss">
+            @theme {
+                --font-roboto: "Roboto", sans-serif;
+            }
+        </style>
+    </head>
+    <body class="w-full p-4 text-white font-roboto bg-gray-900">
+        <div class="w-ful p-4 bg-gray-800 rounded-lg">
+            <h1 class="text-2xl font-bold">Список коритувачів</h1>
+        </div>
+        <ul class="w-full mt-4 flex flex-col bg-gray-800 border border-gray-600 rounded-lg font-normal">
+            {% for client in clients %}
+            <li class="w-full flex items-center hover:bg-gray-700 active:bg-gray-600 border-b border-gray-600 last:border-none">
+                <a class="w-full pl-4 py-4 text-md font-normal" href="{% url 'stats' client.pk %}">Статистика {{ client.name }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </body>
+</html>
