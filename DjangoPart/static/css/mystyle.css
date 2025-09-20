@@ -15,3 +15,43 @@
 .video {
    width: 100%;
 }
+
+.search-form {
+  margin: 1rem 0;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.search-input {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  background: #fff;
+}
+
+.search-input:focus {
+  outline: 2px solid #4a90e2;
+  border-color: #4a90e2;
+}
+
+.search-button {
+  background: #4a90e2;
+  color: #fff;
+  border: none;
+  padding: 0.55rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.search-button:hover {
+  background: #3576c4;
+}
+
+.search-button:active {
+  background: #2b5f9b;
+}

@@ -33,6 +33,10 @@
                     {{ form.end_date }}
                     <button type="submit" class="px-4 py-2 bg-blue-600 rounded">Фільтрувати</button>
                 </form>
+                <form method="get" class="search-form">
+                    <input type="text" name="q" class="search-input" placeholder="Search by video path" value="{{ query }}">
+                    <button type="submit" class="search-button">Search</button>
+                </form>
             </div>
             <ul class="w-1/2 p-4 bg-gray-800 rounded-lg">
                 <li>Кількість замовлених об’єктів: <strong>{{ total_orders }}</strong></li>
@@ -42,6 +46,7 @@
                 <li>Загальна ціна UAH: <strong>{{ total_uah }} ₴</strong></li>
             </ul>
         </div>
+
         <div class="w-full mt-4">
             <div class="w-full py-3 flex justify-between items-center bg-gray-600 rounded-t-lg uppercase font-bold text-lg">
                 <div class="table-col">№</div>

@@ -1,6 +1,9 @@
-import requests
-from django.db.models import Sum
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
+from django.db.models import Sum
+from django.db import models
+import requests
+
 from .models import Client, Order
 from .forms import OrderFilterForm
 
@@ -39,7 +42,12 @@ def index(request):
 
 def user_stats(request, client_id):
     client = get_object_or_404(Client, pk=client_id)
-    orders = Order.objects.filter(client=client).order_by('-time')
+
+    query = request.GET.get("q", "")
+
+    orders = Order.objects.filter(client_id=client_id).order_by('-time')
+    if query:
+        orders = orders.filter(video_path__icontains=query)
 
     form = OrderFilterForm(request.GET or None)
     if form.is_valid():
@@ -48,16 +56,13 @@ def user_stats(request, client_id):
         if form.cleaned_data['end_date']:
             orders = orders.filter(time__date__lte=form.cleaned_data['end_date'])
 
-    # підтягнути курс долара
     usd_to_uah = get_usd_to_uah_rate()
 
-    # агрегована статистика
     total_orders = orders.count()
     total_volume = orders.aggregate(Sum("volume_mm3"))["volume_mm3__sum"] or 0
     total_usd = orders.aggregate(Sum("price_usd"))["price_usd__sum"] or 0
     total_uah = total_usd * usd_to_uah
 
-    # додаємо поле price_uah у кожне замовлення
     for o in orders:
         o.price_uah = o.price_usd * usd_to_uah
 
@@ -71,4 +76,5 @@ def user_stats(request, client_id):
         'total_usd': total_usd,
         'total_uah': round(total_uah, 2),
         'usd_to_uah': usd_to_uah,
+        'query': query
     })

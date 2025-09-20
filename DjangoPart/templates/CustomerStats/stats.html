@@ -12,11 +12,17 @@
 <h2>Тут можна дізнатися про стан ваших замовлень сьогодні. </h2>
 <hr>
 <ul>
-    <li>Кількість замовлених об’єктів: <strong>{{ client_name }}</strong></li>
-    <li>Загальний об’єм усіх замовлень: <strong>{{ client_name }}</strong></li>
-    <li>Загальна ціна USD: <strong>{{ client_name }}</strong></li>
-    <li>Загальна ціна UAH: <strong>{{ client_name }}</strong></li>
+    <li>Кількість замовлених об'єктів: <strong>{{ total_count }}</strong></li>
+    <li>Загальний об'єм усіх замовлень: <strong>{{ total_volume }}</strong></li>
+    <li>Загальна ціна USD: <strong>{{ total_price_usd }}$</strong></li>
+    <li>Загальна ціна UAH: <strong>total_price_uah</strong></li>
 </ul>
+<hr>
+<form method="get" class="search-form">
+    <input type="text" name="q" class="search-input" placeholder="Search by video path" value="{{ query }}">
+    <button type="submit" class="search-button">Search</button>
+</form>
+<hr>
 <div class="header">
     <div class="header_item"># N</div>
     <div class="header_item">video</div>
@@ -34,10 +40,10 @@
     <div class="data_item">{{forloop.counter}}</div>
         <div class="data_item">
             <video class="video" autoplay>
-                <source class="video_source" src="{% static order.name %}">
+                <source class="video_source" src="{% static order.video_path %}">
             </video>
         </div>
-        <div class="data_item">{{order.name}}</div>
+        <div class="data_item">{{order.video_path}}</div>
         <div class="data_item">count</div>
         <div class="data_item">order.count * order.volume_mm3</div>
         <div class="data_item">{{order.volume_mm3}}</div>
