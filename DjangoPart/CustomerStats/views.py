@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Sum
 from django.db import models
 import requests
@@ -78,3 +78,9 @@ def user_stats(request, client_id):
         'usd_to_uah': usd_to_uah,
         'query': query
     })
+
+
+def delete_order(request, pk):
+    order = get_object_or_404(Order, pk=pk)
+    order.delete()
+    return redirect(request.META.get("HTTP_REFERER", "customer-stats"))
