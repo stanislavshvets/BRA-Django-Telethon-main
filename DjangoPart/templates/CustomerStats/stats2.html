@@ -58,6 +58,7 @@
                 <div class="table-col">volume all</div>
                 <div class="table-col">price usd</div>
                 <div class="table-col">price uah</div>
+                <div class="table-col">delete</div>
             </div>
             {% for order in orders %}
                 <div class="w-full py-2 flex justify-between items-center bg-gray-800 border-b border-x border-gray-600 last:rounded-b-lg font-normal text-md">
@@ -74,7 +75,20 @@
                     <div class="table-col">{{order.volume_mm3}}</div>
                     <div class="table-col">{{order.price_usd}} $</div>
                     <div class="table-col">{{ order.price_uah|floatformat:2 }} ₴</div>
+                    <div class="table-col">
+                        <form method="post" action="{% url 'order-delete' order.id %}" onsubmit="return confirm('Delete this order?');">
+                            {% csrf_token %}
+                            <button type="submit" class="px-4 py-2 bg-red-600 hover:bg-red-700 rounded text-xs">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="1" y1="1" x2="13" y2="13" />
+                                    <line x1="13" y1="1" x2="1" y2="13" />
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
                 </div>
+                {% empty %}
+                <div class="w-full p-4 bg-gray-800 rounded-b-lg text-center">No orders.</div>
             {% endfor %}
         </div>
     </body>
