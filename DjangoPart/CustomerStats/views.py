@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views.generic import TemplateView
 
 from .models import Client, Order
 from .filtrations import filter_orders
@@ -19,10 +20,13 @@ def get_client_orders(client_id: int):
         ]
     }
 
+
 def index(request):
+    example = request.GET
     return render(request, 'CustomerStatsTW/index.html', {
         'clients': Client.objects.all()
     })
+
 
 
 def user_stats(request, client_id):
@@ -50,3 +54,6 @@ def delete_order(request, pk):
     order = get_object_or_404(Order, pk=pk)
     order.delete()
     return redirect(request.META.get("HTTP_REFERER", "customer-stats"))
+
+class About(TemplateView):
+    template_name = 'CustomerStatsTW/about.html'
