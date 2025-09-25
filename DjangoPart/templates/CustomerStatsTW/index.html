@@ -17,6 +17,16 @@
         </style>
     </head>
     <body class="w-full p-4 text-white font-roboto bg-gray-900">
+        <header>
+            <nav class="w-full">
+                <ul >
+                    <li><a href="{% url 'index' %}">Головна</a></li>
+                    {% verbatim about %}
+                        <li><a href="{% url 'about' %}">Про нас</a></li>
+                    {% endverbatim about %}
+                </ul>
+            </nav>
+        </header>
         <div class="w-ful p-4 bg-gray-800 rounded-lg">
             <h1 class="text-2xl font-bold">Список коритувачів</h1>
         </div>
