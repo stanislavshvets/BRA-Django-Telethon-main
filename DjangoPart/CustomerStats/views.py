@@ -22,12 +22,9 @@ def get_client_orders(client_id: int):
 
 
 def index(request):
-    example = request.GET
-    return render(request, 'CustomerStatsTW/index.html', {
+    return render(request, 'CustomerStatsTW/components/index.html', {
         'clients': Client.objects.all()
     })
-
-
 
 def user_stats(request, client_id):
     client = get_object_or_404(Client, pk=client_id)
@@ -38,7 +35,7 @@ def user_stats(request, client_id):
     usd_to_uah = get_usd_to_uah_rate()
     totals = calculate_totals(orders, usd_to_uah)
 
-    return render(request, 'CustomerStatsTW/stats.html', {
+    return render(request, 'CustomerStatsTW/components/stats.html', {
         'client_name': client.name,
         'orders': orders,
         'form': form,
@@ -56,4 +53,4 @@ def delete_order(request, pk):
     return redirect(request.META.get("HTTP_REFERER", "customer-stats"))
 
 class About(TemplateView):
-    template_name = 'CustomerStatsTW/about.html'
+    template_name = 'CustomerStatsTW/components/about.html'

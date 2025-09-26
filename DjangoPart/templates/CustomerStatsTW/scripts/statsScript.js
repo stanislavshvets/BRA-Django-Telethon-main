@@ -20,3 +20,9 @@ function validateFilterForm(form) {
     alert("Будь ласка, заповніть хоча б одне поле для фільтрації!");
     return false;
 }
+
+function removeEmptyInputs(form) {
+    for (const el of form.querySelectorAll("input")) {
+        if (!el.value) el.removeAttribute("name");
+    }
+}

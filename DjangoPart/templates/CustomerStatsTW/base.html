@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100..900&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style type="text/tailwindcss">
+      @theme {
+        --font-roboto: "Roboto", sans-serif;
+      }
+      .table-col {
+        @apply w-1/8 flex justify-center items-center;
+      }
+      .btn-style {
+        @apply px-4 py-2 bg-blue-600 hover:bg-blue-700 active:bg-blue-500 rounded cursor-pointer;
+      }
+    </style>
+</head>
+<body class="w-full p-4 text-white font-roboto bg-gray-900">
+    <header class="w-full flex justify-between items-center p-4 bg-gray-800 rounded-lg">
+        <h1 class="text-xl font-bold leading-none flex items-center">{% block PageName %}{% endblock %}</h1>
+        {% include "CustomerStatsTW/components/navbar.html" %}
+        {% include "CustomerStatsTW/components/login_btn.html" %}
+    </header>
+    <main class="w-full">
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
