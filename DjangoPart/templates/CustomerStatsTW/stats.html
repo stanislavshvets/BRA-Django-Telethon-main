@@ -1,6 +1,10 @@
 {% extends "base/base.html" %}
 {% load static %}
- {% block PageName %}Статистика замовлень{% endblock %}
+
+{% block title %}{{client_name}}{% endblock %}
+
+{% block PageName %}Статистика замовлень{% endblock %}
+
 {% block content%}
         <div id="formBlock" class="hidden">
             <div class="absolute top-0 left-0 w-full h-full z-9 bg-black opacity-30" onclick="toggleVisibility()"></div>

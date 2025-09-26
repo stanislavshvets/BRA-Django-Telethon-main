@@ -1,5 +1,9 @@
 {% extends "base/base.html" %}
+
+{% block title %}Users List{% endblock %}
+
 {% block PageName %}Список користувачів{% endblock %}
+
 {% block content%}
         <ul class="w-full mt-4 flex flex-col bg-gray-800 border border-gray-600 rounded-lg font-normal">
             {% for client in clients %}
