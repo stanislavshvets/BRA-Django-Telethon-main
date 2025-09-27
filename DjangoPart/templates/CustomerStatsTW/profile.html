@@ -26,6 +26,7 @@
                 <li>Загальна ціна USD: <strong>{{ total_usd }} $</strong></li>
                 <li>Загальна ціна UAH: <strong>{{ total_uah }} ₴</strong></li>
             </ul>
+
         </div>
     </div>
     {% include "CustomerStatsTW/components/userStats.html" with orders=client.order_set.all %}
