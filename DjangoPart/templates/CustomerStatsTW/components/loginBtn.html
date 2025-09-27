@@ -1,7 +1,17 @@
 <div class="w-5/12 sm:w-4/12 flex flex-row justify-end">
+    {% if user.is_authenticated %}
+    <form method="post" action="{% url 'Auth:logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="px-4 py-1 bg-blue-600 hover:bg-blue-700 active:bg-blue-500 rounded cursor-pointer">
+            <span class="text-md font-semibold text-white">Log out</span>
+        </button>
+    </form>
+    {% else %}
     <button class="px-4 py-1 bg-blue-600 hover:bg-blue-700 active:bg-blue-500 rounded cursor-pointer">
-      <a href="#" class="text-md font-semibold text-white">Log in <span aria-hidden="true">&rarr;</span></a>
+        <a href="{% url 'Auth:login' %}" class="text-md font-semibold text-white">Log in <span
+                aria-hidden="true">&rarr;</span></a>
     </button>
+    {% endif %}
     <button class="block sm:hidden ml-3 p-2 bg-blue-600 text-white hover:bg-blue-700 active:bg-blue-500 rounded cursor-pointer" onclick="toggleMobMenuVisibility()">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="2" y1="3" x2="12" y2="3" />
