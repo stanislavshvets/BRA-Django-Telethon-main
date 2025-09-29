@@ -27,7 +27,8 @@
         <div class="table-col">order.count * order.volume_mm3</div>
         <div class="table-col">{{order.volume_mm3}}</div>
         <div class="table-col">{{order.price_usd}} $</div>
-        <div class="table-col">{{ order.price_uah|floatformat:2 }} ₴</div>
+        <!-- Чомусь не рахує ціну в гривнях на сторінці профіля-->
+        <div class="table-col">{{order.price_uah|floatformat:2 }} ₴</div>
         <div class="table-col">
             <form method="post" action="{% url 'stats:order-delete' order.id %}" onsubmit="return confirm('Видалити це замовлення?');">
                 {% csrf_token %}

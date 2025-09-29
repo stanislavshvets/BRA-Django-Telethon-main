@@ -38,13 +38,15 @@
       </label>
     </div>
 
-    <button type="submit" class="w-full btn-style text-white font-medium">Увійти</button>
+    <button type="submit" class="w-full btn-style">Увійти</button>
   </form>
 
-  <div class="mt-6 text-center text-sm text-gray-400">
+  <p class="mt-6 text-center text-sm text-gray-400">
     Немає акаунту?
-    <a href="{% url 'Auth:register' %}" class="text-blue-400 hover:underline">Зареєструватися</a>
-  </div>
+    <a href="{% url 'Auth:register' %}" class="font-semibold leading-6 text-blue-500 hover:text-blue-400 hover:underline">
+        Зареєструватися
+    </a>
+  </p>
 </div>
 
 {% endblock %}

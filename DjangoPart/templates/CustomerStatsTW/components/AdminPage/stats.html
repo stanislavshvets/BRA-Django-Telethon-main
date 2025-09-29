@@ -1,0 +1,14 @@
+{% extends "CustomerStatsTW/base.html" %}
+
+{% load static %}
+
+{% block title %}Статистика замовлень{% endblock %}
+{% block PageName %}Статистика замовлень{% endblock %}
+
+{% block content%}
+
+{% include "CustomerStatsTW/components/global/filtrationForm.html" %}
+{% include "CustomerStatsTW/components/global/statistic.html" with greeting="Статистика клієнта:" %}
+{% include "CustomerStatsTW/components/global/orderStats.html" %}
+
+{% endblock %}

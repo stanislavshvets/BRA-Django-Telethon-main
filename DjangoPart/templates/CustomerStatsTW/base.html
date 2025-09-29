@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +6,10 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     {% load static %}
+    {% url 'Auth:login' as login_url %}
+    {% url 'Auth:register' as register_url %}
+    {% url 'Auth:logout' as logout_url %}
+    {% url 'stats:about' as about_us_url %}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100..900&display=swap" rel="stylesheet">
@@ -25,29 +27,39 @@
         @apply px-4 py-2 bg-blue-600 hover:bg-blue-700 active:bg-blue-500 rounded cursor-pointer;
       }
       .link-style {
-        @apply hover:text-blue-700 hover:underline hover:underline-offset-1 active:bg-blue-500 rounded cursor-pointer;
+        @apply text-purple-700 hover:text-blue-700 hover:underline hover:underline-offset-1 active:bg-blue-500 rounded cursor-pointer;
       }
     </style>
 </head>
 <body class="w-full p-4 text-white font-roboto bg-gray-900">
     <header class="w-full flex justify-between items-center p-4 bg-gray-800 rounded-lg">
-        <h1 class="w-6/12 sm:w-4/12 text-md sm:text-xl font-bold leading-none flex items-center">{% block PageName %}{% endblock %}</h1>
+        <h1 class="w-6/12 sm:w-4/12 text-md sm:text-xl font-bold leading-none flex items-center">
+            {% if user.is_authenticated %}
+              {% block PageName %}{% endblock %}
+            {% else %}
+              {% if request.path == login_url %}
+                Логін
+              {% elif request.path == register_url %}
+                Реєстрація
+              {% elif request.path == about_us_url %}
+                Про нас
+              {% else %}
+                Головна
+              {% endif %}
+            {% endif %}
+        </h1>
         <div class="hidden sm:block sm:mt-1 sm:w-4/12">
-            {% include "CustomerStatsTW/components/navbar.html" %}
+            {% include "CustomerStatsTW/components/global/header/navbar.html" %}
         </div>
-        {% include "CustomerStatsTW/components/loginBtn.html" %}
+        {% include "CustomerStatsTW/components/global/header/loginBtn.html" %}
     </header>
-    {% include "CustomerStatsTW/components/mobileMenu.html" %}
+    {% include "CustomerStatsTW/components/global/mobileMenu.html" %}
 
     <main class="w-full">
-        {% url 'Auth:login' as login_url %}
-        {% url 'Auth:register' as register_url %}
-        {% url 'Auth:logout' as logout_url %}
-        <p>Користувач: {{user}}</p>
-        {% if user.is_authenticated or request.path == login_url or request.path == register_url or request.path == logout_url%}
+        {% if user.is_authenticated or request.path == login_url or request.path == register_url or request.path == logout_url or request.path == about_us_url %}
             {% block content %} {% endblock %}
         {% else %}
-            <p>Маєте <a class="link-style" href="{{login_url}}">залогінитись</a></p>
+            {% include "CustomerStatsTW/components/global/unauthorizedMassage.html" %}
         {% endif %}
     </main>
 <script src="{% static 'statsScript.js' %}" defer></script>
