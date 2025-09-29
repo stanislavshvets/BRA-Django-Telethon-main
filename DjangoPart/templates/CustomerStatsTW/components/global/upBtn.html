@@ -1,0 +1,57 @@
+<form
+  method="post"
+  enctype="multipart/form-data"
+  class="mt-6 space-y-4 bg-gray-800/50 p-4 rounded-xl shadow"
+>
+  {% csrf_token %}
+
+  {{ uploadFileForm.non_field_errors }}
+
+  <div>
+    <label for="{{ uploadFileForm.title.id_for_label }}" class="block text-sm font-medium">
+      Назва
+    </label>
+    {{ uploadFileForm.title.errors }}
+    <input
+      type="text"
+      name="{{ uploadFileForm.title.html_name }}"
+      id="{{ uploadFileForm.title.id_for_label }}"
+      value="{{ uploadFileForm.title.value|default:'' }}"
+      maxlength="50"
+      class="mt-1 block w-full rounded-lg border border-gray-300 bg-gray-900/70 p-2 text-white
+             focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+      placeholder="Введіть назву"
+    />
+  </div>
+
+  <div>
+    <label for="{{ uploadFileForm.file.id_for_label }}" class="block text-sm font-medium">
+      Файл
+    </label>
+    {{ uploadFileForm.file.errors }}
+    <input
+      type="file"
+      name="{{ uploadFileForm.file.html_name }}"
+      id="{{ uploadFileForm.file.id_for_label }}"
+      class="mt-1 block w-full text-sm text-gray-300
+             file:mr-4 file:rounded-lg file:border-0
+             file:bg-indigo-600 file:px-4 file:py-2
+             file:text-sm file:font-semibold
+             hover:file:bg-indigo-700"
+    />
+  </div>
+
+  <button
+    type="submit"
+    class="inline-flex items-center gap-2 rounded-lg bg-green-600 px-4 py-2
+           font-semibold text-white shadow hover:bg-green-700 focus:ring-2
+           focus:ring-green-500 focus:outline-none"
+  >
+    <!-- SVG іконка завантаження -->
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4"/>
+    </svg>
+    Завантажити
+  </button>
+</form>
