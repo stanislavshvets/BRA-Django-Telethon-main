@@ -15,6 +15,10 @@ class Client(models.Model):
     def __str__(self):
         return self.name
 
+class ExecutionType(models.Model):
+    execution_type = models.CharField(max_length=100)
+
+
 class Order(models.Model):
     delivery_type = models.ForeignKey(DeliveryType, on_delete=models.PROTECT, null=True)
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
@@ -22,6 +26,7 @@ class Order(models.Model):
     video_path = models.CharField(max_length=255)
     volume_mm3 = models.FloatField()
     price_usd = models.FloatField()
+    execution_type = models.ForeignKey(ExecutionType, on_delete=models.PROTECT, null=True)
 
     def __str__(self):
         return self.video_path
