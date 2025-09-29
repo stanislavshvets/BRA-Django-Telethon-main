@@ -23,7 +23,7 @@ def get_client_orders(client_id: int):
 
 
 def index(request):
-    return render(request, 'CustomerStatsTW/components/index.html', {
+    return render(request, 'CustomerStatsTW/components/AdminPage/index.html', {
         'clients': Client.objects.all()
     })
 
@@ -36,7 +36,7 @@ def user_stats(request, client_id):
     usd_to_uah = get_usd_to_uah_rate()
     totals = calculate_totals(orders, usd_to_uah)
 
-    return render(request, 'CustomerStatsTW/components/stats.html', {
+    return render(request, 'CustomerStatsTW/components/AdminPage/stats.html', {
         'client_name': client.name,
         'orders': orders,
         'form': form,
@@ -56,4 +56,4 @@ def delete_order(request, pk):
     return redirect(request.META.get("HTTP_REFERER", "customer-stats"))
 
 class About(TemplateView):
-    template_name = 'CustomerStatsTW/components/about.html'
+    template_name = 'CustomerStatsTW/components/aboutUsPage/about.html'

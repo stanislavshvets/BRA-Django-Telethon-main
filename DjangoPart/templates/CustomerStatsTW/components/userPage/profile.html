@@ -1,0 +1,10 @@
+{% extends "CustomerStatsTW/base.html" %}
+{% block title %}Профіль клієнта{% endblock %}
+{% block PageName %}Профіль клієнта{% endblock %}
+{% block content %}
+
+{% include "CustomerStatsTW/components/global/filtrationForm.html" %}
+{% include "CustomerStatsTW/components/global/statistic.html" %}
+{% include "CustomerStatsTW/components/global/orderStats.html" with orders=client.order_set.all %}
+
+{% endblock %}
