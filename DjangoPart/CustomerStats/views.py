@@ -1,4 +1,3 @@
-from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import TemplateView
 
@@ -49,10 +48,8 @@ def user_stats(request, client_id):
 
 
 def delete_order(request, pk):
-    one_order_list = list(request.user.client.order_set.filter(pk=pk).values_list("pk", flat=True))
-    if not one_order_list:
-        raise Http404
-    one_order_list[0].delete()
+    order = get_object_or_404(Order, pk=pk)
+    order.delete()
     return redirect(request.META.get("HTTP_REFERER", "customer-stats"))
 
 class About(TemplateView):
