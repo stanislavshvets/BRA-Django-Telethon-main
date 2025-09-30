@@ -1,0 +1,48 @@
+{% load static %}
+
+<div class="w-full mt-4">
+    <div class="w-full py-3 flex justify-between items-center bg-gray-600 rounded-t-lg uppercase font-bold text-lg">
+        <div class="table-col">№</div>
+        <div class="table-col">Data</div>
+        <div class="table-col">Video</div>
+        <div class="table-col">Filename</div>
+        <div class="table-col">count</div>
+        <div class="table-col">volume single</div>
+        <div class="table-col">volume all</div>
+        <div class="table-col">price usd</div>
+        <div class="table-col">price uah</div>
+        <div class="table-col">delete</div>
+    </div>
+    {% for order in orders %}
+    <div class="w-full py-2 flex justify-between items-center bg-gray-800 border-b border-x border-gray-600 last:rounded-b-lg font-normal text-md">
+        <div class="table-col">{{forloop.counter}}</div>
+        <div class="table-col">{{order.time}}</div>
+        <div class="table-col">
+            <video class="w-1/2" autoplay>
+                <source class="video_source" src="{% static order.video_path %}">
+            </video>
+        </div>
+        <div class="table-col">{{order.video_path}}</div>
+        <div class="table-col">count</div>
+        <div class="table-col">order.count * order.volume_mm3</div>
+        <div class="table-col">{{order.volume_mm3}}</div>
+        <div class="table-col">{{order.price_usd}} $</div>
+        <!-- Чомусь не рахує ціну в гривнях на сторінці профіля-->
+        <div class="table-col">{{order.price_uah|floatformat:2 }} ₴</div>
+        <div class="table-col">
+            <form method="post" action="{% url 'stats:order-delete' order.id %}" onsubmit="return confirm('Видалити це замовлення?');">
+                {% csrf_token %}
+                <button type="submit" class="px-4 py-2 bg-red-600 hover:bg-red-700 active:bg-red-500 rounded text-xs cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="1" y1="1" x2="13" y2="13" />
+                        <line x1="13" y1="1" x2="1" y2="13" />
+                    </svg>
+                </button>
+            </form>
+        </div>
+        {% include "CustomerStatsTW/components/global/upBtn.html" %}
+    </div>
+    {% empty %}
+    <div class="w-full p-4 bg-gray-800 rounded-b-lg text-center">No orders.</div>
+    {% endfor %}
+</div>

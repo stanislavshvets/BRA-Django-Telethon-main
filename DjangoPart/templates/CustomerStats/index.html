@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Main page</title>
+</head>
+<body>
+<ul>
+{% for client in clients %}
+    <li><a href="{% url 'stats:stats' client.pk %}"> To your stats {{ client.name }} </a></li>
+{% endfor %}
+</ul>
+</body>
+</html>

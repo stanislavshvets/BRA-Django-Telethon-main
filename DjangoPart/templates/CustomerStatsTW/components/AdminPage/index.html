@@ -1,0 +1,16 @@
+{% extends "CustomerStatsTW/base.html" %}
+
+{% block title %}Список користувачів{% endblock %}
+{% block PageName %}Список користувачів{% endblock %}
+
+{% block content %}
+<ul class="w-full mt-4 flex flex-col bg-gray-800 border border-gray-600 rounded-lg font-normal">
+    {% for client in clients %}
+    <li class="w-full flex items-center hover:bg-gray-700 active:bg-gray-600 border-b border-gray-600 last:border-none">
+        <a class="w-full pl-4 py-4 text-md font-normal" href="{% url 'stats:stats' client.pk %}">
+            Статистика {{ client.name }}
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

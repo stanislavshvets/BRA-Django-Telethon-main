@@ -1,0 +1,13 @@
+<div id="mobileMenuBg" class="block sm:hidden fixed inset-0 bg-black/50 transition-opacity duration-300 opacity-0 invisible" onclick="toggleMobMenuVisibility()"></div>
+<div id="mobileMenu" class="block sm:hidden fixed top-0 right-0 h-full w-64 bg-gray-800 shadow-lg transform transition-transform duration-300 translate-x-full">
+    <div class="flex items-center justify-between p-4 border-b border-gray-600">
+        <h4 class="text-lg font-semibold">Меню</h4>
+        <button class="p-2 bg-blue-600 text-white hover:bg-blue-700 active:bg-blue-500 rounded cursor-pointer" onclick="toggleMobMenuVisibility()">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="1" y1="1" x2="13" y2="13" />
+                <line x1="13" y1="1" x2="1" y2="13" />
+            </svg>
+        </button>
+    </div>
+    {% include "CustomerStatsTW/components/global/header/navbar.html" %}
+</div>

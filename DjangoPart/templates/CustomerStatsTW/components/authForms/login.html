@@ -1,0 +1,53 @@
+{% extends "CustomerStatsTW/base.html" %}
+{% block title %}Login{% endblock %}
+{% block PageName %}Вхід на сайт{% endblock %}
+{% block content %}
+
+<div class="max-w-md mx-auto mt-12 p-6 bg-gray-800/80 rounded-lg shadow-lg">
+  <h2 class="text-2xl font-semibold mb-4">Увійти в акаунт</h2>
+
+  {% if form.errors %}
+    <div class="mb-4 p-3 bg-red-900/60 text-red-200 rounded">
+      Будь ласка, перевірте поля форми.
+    </div>
+  {% endif %}
+
+  <form method="post" action="{% url 'Auth:login' %}" class="space-y-4">
+    {% csrf_token %}
+
+    <div>
+      <label for="{{ form.username.id_for_label }}" class="block text-sm font-medium mb-1">
+        Username
+      </label>
+      {{ form.username }}
+      {{ form.username.errors }}
+    </div>
+
+    <div>
+      <label for="{{ form.password.id_for_label }}" class="block text-sm font-medium mb-1">
+        Пароль
+      </label>
+      {{ form.password }}
+      {{ form.password.errors }}
+    </div>
+
+    <div class="flex items-center justify-between text-sm">
+      <label class="flex items-center gap-2">
+        <input type="checkbox" name="remember" class="h-4 w-4 rounded bg-gray-700 border-gray-600" />
+        Запам'ятати мене
+      </label>
+    </div>
+
+    <button type="submit" class="w-full btn-style">Увійти</button>
+  </form>
+
+  <p class="mt-6 text-center text-sm text-gray-400">
+    Немає акаунту?
+    <a href="{% url 'Auth:register' %}" class="font-semibold leading-6 text-blue-500 hover:text-blue-400 hover:underline">
+        Зареєструватися
+    </a>
+  </p>
+</div>
+
+{% endblock %}
+
