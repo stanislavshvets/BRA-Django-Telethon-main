@@ -1,6 +1,8 @@
 import colorama
 from colorama import Fore, Style
 
+from TelegramPart.src.Timer import now_local
+
 colorama.init()
 
 
@@ -35,6 +37,7 @@ class DPrint(DPrintBase):
 
         text = (
                 f'[{level}]' +
+                now_local().strftime('[%d/%m/%Y %H:%M:%S] ') +
                 f'{self.prefix} ' + txt
         )
         print(color + text + Style.RESET_ALL)

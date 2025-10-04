@@ -8,7 +8,7 @@ import pyvista
 import vtkmodules.util.pickle_support  # For pickle vtkPolyData
 from vtkmodules.vtkCommonDataModel import vtkPolyData
 
-from DebugPrinter import DPrint
+from Utils.DebugPrinter import DPrint
 from MeshBuilderVTK import MeshBuilderVTK
 from RenderPyVista import Visualizer
 

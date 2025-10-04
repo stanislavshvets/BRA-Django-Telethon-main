@@ -7,7 +7,7 @@ from telethon import TelegramClient
 from telethon.tl.custom import Message
 from tzlocal import get_localzone
 
-from VisModel.DebugPrinter import DPrint
+from Utils.DebugPrinter import DPrint
 
 
 def get_bare_filename(filename):
