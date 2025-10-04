@@ -8,6 +8,7 @@ from telethon.tl.custom import Message
 from tzlocal import get_localzone
 
 from Utils.DebugPrinter import DPrint
+from Utils.Utils import create_model_path
 
 
 def get_bare_filename(filename):
@@ -15,17 +16,10 @@ def get_bare_filename(filename):
     split.pop()
     return split[-1]
 
+
 def get_extension(filename):
     split = filename.split('.')
     return split.pop()
-
-def sanitize_folder_name(name):
-    invalid_chars = '<>:"/\\|?*'
-    # Remove invalid characters
-    sanitized_name = re.sub(f"[{re.escape(invalid_chars)}]", "", name)
-    # Remove trailing periods and spaces
-    sanitized_name = sanitized_name.rstrip('. ')
-    return sanitized_name
 
 
 class FileDownloaderFromMessage:
@@ -48,38 +42,14 @@ class FileDownloaderFromMessage:
         self.filename_full_stub = None
         self.stub_extension = '.stub'
 
-    def calc_order_date(self):
-        msg_date = self.msg.date.astimezone(get_localzone())
-        order_date = msg_date if msg_date.hour < self.day_border_local_hour else (msg_date + timedelta(days=1))
-
-        year = order_date.year
-        month = order_date.month
-        day = order_date.day
-
-        return order_date, year, month, day
-
-    async def create_full_path(self):
-        user_info = await self.msg.get_sender()
-
-        internal_customer_profile = sanitize_folder_name(
-            f'(@{user_info.username})' +
-            ' ' +
-            (user_info.first_name or '') +
-            ' '
-            + (user_info.last_name or '')
-        )
-
-        full_date, year, month, day = self.calc_order_date()
-        path_full = os.path.join(os.getcwd(), f"../common_data/models/{year}/{full_date.strftime('%B')}/{day:02d}/{internal_customer_profile}")
-        test = os.path.relpath(f"../common_data/models/{year}/{full_date.strftime('%B')}/{day:02d}/{internal_customer_profile}", '.')
-        os.makedirs(path_full, exist_ok=True)
-
-        return path_full
-
     async def cache_full_filenames(self):
         if self.path_full is None:
-            self.path_full = os.path.abspath(await self.create_full_path()) + '/'
-
+            user_info = await self.msg.get_sender()
+            self.path_full = os.path.abspath(create_model_path(self.msg.date.astimezone(get_localzone()),
+                                                               user_info.username,
+                                                               user_info.first_name,
+                                                               user_info.last_name,
+                                                               self.day_border_local_hour))
         self.filename_full = self.path_full + self.filename
         self.filename_full_stub = os.path.abspath(self.path_full + self.filename + self.stub_extension)
 

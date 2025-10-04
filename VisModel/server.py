@@ -19,13 +19,14 @@ from concurrent.futures import ProcessPoolExecutor
 # Project imports: your existing pipeline
 from MeshBuilderVTK import MeshBuilderVTK
 from RenderPyVista import Visualizer
+from Utils.Utils import convert_model_path_to_video_path
 
 logging.basicConfig(level=logging.INFO)
 
 # Where to store final videos
-VIDEOS_DIR = pathlib.Path("../common_data/video")
+VIDEOS_DIR = pathlib.Path("common_data/video")
 VIDEOS_DIR.mkdir(exist_ok=True)
-MODELS_DIR = pathlib.Path("../common_data/models")
+MODELS_DIR = pathlib.Path("common_data/models")
 
 # CPU-bound rendering is offloaded to processes to avoid blocking the event loop
 executor = ProcessPoolExecutor(max_workers=os.cpu_count())
@@ -86,7 +87,7 @@ async def submit_render(request: web.Request):
 
     # Create a unique job identifier and an output path
     job_id = str(uuid.uuid4())
-    out_path = str(VIDEOS_DIR / f"{pathlib.Path(obj_path).stem}_{job_id}.mp4")
+    out_path = convert_model_path_to_video_path(obj_path)
 
     # Initialize job metadata
     jobs[job_id] = {"status": "queued", "result_path": out_path, "params": params}
@@ -137,4 +138,4 @@ def make_app():
 
 if __name__ == "__main__":
     # Run the web service
-    web.run_app(make_app(), host="0.0.0.0", port=8080)
+    web.run_app(make_app(), host="0.0.0.0", port=8081)

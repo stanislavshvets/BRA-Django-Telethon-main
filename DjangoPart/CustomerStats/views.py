@@ -54,7 +54,7 @@ async def delete_order(request, pk):
 async def create_video(path):
     async with aiohttp.ClientSession() as session:
         try:
-            async with session.post('http://localhost:8080/render', json={'obj_path': path}) as response:
+            async with session.post('http://localhost:8081/render', json={'obj_path': path}) as response:
                 response.raise_for_status()
                 data = await response.json()
                 job_id = data.get('job_id')

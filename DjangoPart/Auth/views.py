@@ -1,3 +1,5 @@
+import pathlib
+
 from asgiref.sync import sync_to_async
 from django.contrib.auth.views import LoginView, LogoutView
 from django.core.files.uploadedfile import UploadedFile
@@ -9,7 +11,11 @@ from django.urls import reverse_lazy, reverse
 from django.contrib.auth import login
 import aiofiles
 from django.apps import apps
+from django.utils import timezone
+from django.utils.timezone import localtime
+from tzlocal import get_localzone
 
+from Utils.Utils import create_model_path, convert_model_path_to_video_path
 from .forms import CustomLoginForm, CustomRegisterForm, UploadFileForm
 from CustomerStats.exchange_rates import get_usd_to_uah_rate, calculate_totals
 from CustomerStats.filtrations import filter_orders
@@ -94,15 +100,22 @@ class ProfileView(View):
         if form.is_valid():
             file = form.cleaned_data["file"]
             filename = file.name
-            save_dir = BASE_DIR.parent / "common_data" / "models"
-            save_dir.mkdir(parents=True, exist_ok=True)
+            order_time = localtime().astimezone(get_localzone())
+            save_dir = pathlib.Path(create_model_path(order_time,
+                                                      'username',
+                                                      "first_name",
+                                                      "last_name",
+                                                      18))
             file_path = save_dir / file.name
 
             async with aiofiles.open(file_path, "wb+") as destination:
                 for chunk in file.chunks():
                     await destination.write(chunk)
             await create_video(str(file_path))
-#            await sync_to_async(lambda: request.user.client.order_set.create(video_path='video/Test_1.mp4'))()
+            await sync_to_async(lambda: request.user.client.order_set.create(time=order_time,
+                                                                             video_path=file_path,
+                                                                             volume_mm3=20,
+                                                                             price_usd=0))()
             return redirect("Auth:profile")
 
         context = await self.get_context_data(request, upload_file_form=form)
