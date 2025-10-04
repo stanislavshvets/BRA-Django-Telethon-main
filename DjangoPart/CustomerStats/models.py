@@ -27,7 +27,6 @@ class Order(models.Model):
     video_path = models.CharField(max_length=255)
     volume_mm3 = models.FloatField()
     price_usd = models.FloatField()
-    execution_type = models.ForeignKey(ExecutionType, on_delete=models.PROTECT, null=True)
 
     def __str__(self):
         return self.video_path

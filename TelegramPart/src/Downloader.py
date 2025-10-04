@@ -70,8 +70,8 @@ class FileDownloaderFromMessage:
         )
 
         full_date, year, month, day = self.calc_order_date()
-
-        path_full = os.path.join(os.getcwd(), f"DATA/{year}/{full_date.strftime('%B')}/{day:02d}{month:02d}/{internal_customer_profile}")
+        path_full = os.path.join(os.getcwd(), f"../common_data/models/{year}/{full_date.strftime('%B')}/{day:02d}/{internal_customer_profile}")
+        test = os.path.relpath(f"../common_data/models/{year}/{full_date.strftime('%B')}/{day:02d}/{internal_customer_profile}", '.')
         os.makedirs(path_full, exist_ok=True)
 
         return path_full
