@@ -1,3 +1,4 @@
+import os
 import pathlib
 
 from asgiref.sync import sync_to_async
@@ -78,6 +79,7 @@ class ProfileView(View):
             totals = await calculate_totals(orders, usd_to_uah)
 
         context = {
+            "GOOGLE_OAUTH_CLIENT_ID": os.environ.get("GOOGLE_OAUTH_CLIENT_ID"),
             "greeting": "Вітаємо,",
             "user": user,
             "client": client,
