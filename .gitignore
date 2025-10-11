@@ -207,3 +207,6 @@ marimo/_static/
 marimo/_lsp/
 __marimo__/
 /.idea/
+
+
+client_secret*.json
